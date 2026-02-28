@@ -1,465 +1,170 @@
-<!-- trigger deploy -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Farzin Haddadpour — AI Scientist</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <title>Farzin Haddadpour</title>
   <style>
-    :root {
-      --ink: #0f0e0d;
-      --paper: #f5f2ec;
-      --muted: #7a7570;
-      --accent: #c0392b;
-      --rule: #d4cfc8;
-      --mono: 'DM Mono', monospace;
-      --serif: 'Cormorant Garamond', Georgia, serif;
-    }
+    body { font-family: Georgia, serif; font-size: 16px; line-height: 1.7; color: #222; margin: 0; background: #fff; }
+    a { color: #366; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .wrapper { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; display: flex; gap: 3rem; }
 
-    html { scroll-behavior: smooth; }
+    /* Sidebar */
+    .sidebar { width: 200px; flex-shrink: 0; text-align: center; }
+    .sidebar img { width: 150px; border-radius: 50%; display: block; margin: 0 auto 1rem; }
+    .sidebar h1 { font-size: 1.1rem; margin: 0 0 0.2rem; }
+    .sidebar .role { font-size: 0.85rem; color: #555; margin: 0 0 1rem; }
+    .sidebar ul { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+    .sidebar ul li { margin-bottom: 0.3rem; }
 
-    body {
-      font-family: var(--serif);
-      background: var(--paper);
-      color: var(--ink);
-      font-size: 18px;
-      line-height: 1.7;
-      min-height: 100vh;
-    }
+    /* Main */
+    main { flex: 1; }
+    main h2 { font-size: 1.3rem; border-bottom: 1px solid #ccc; padding-bottom: 0.3rem; margin-top: 2.5rem; }
+    main h2:first-child { margin-top: 0; }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1.1rem 3rem;
-      background: var(--paper);
-      border-bottom: 1px solid var(--rule);
-    }
-    .nav-name {
-      font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted);
-    }
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--muted); text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--accent); }
+    /* Publications */
+    .pub { margin-bottom: 1.2rem; }
+    .pub .title { font-weight: bold; }
+    .pub .authors { font-size: 0.9rem; }
+    .pub .venue { font-size: 0.9rem; font-style: italic; color: #555; }
+    .pub-group-label { font-weight: bold; margin: 1.2rem 0 0.5rem; }
 
-    /* ── SECTIONS ── */
-    section { padding: 6rem 0; }
-    .container { max-width: 860px; margin: 0 auto; padding: 0 2.5rem; }
+    footer { text-align: center; font-size: 0.8rem; color: #888; padding: 2rem; border-top: 1px solid #eee; margin-top: 2rem; }
 
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: end;
-      padding-top: 6rem;
-    }
-    .hero-left h1 {
-      font-size: clamp(3.5rem, 7vw, 6rem);
-      font-weight: 300; line-height: 1.05;
-      letter-spacing: -0.02em;
-    }
-    .hero-left h1 em {
-      font-style: italic; color: var(--accent);
-    }
-    .hero-left .subtitle {
-      font-family: var(--mono); font-size: 0.78rem;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--muted); margin-top: 2rem;
-    }
-    .hero-right {
-      border-left: 1px solid var(--rule);
-      padding-left: 3rem;
-    }
-    .hero-right p {
-      font-size: 1.15rem; color: #3a3733;
-      line-height: 1.8; font-weight: 300;
-    }
-    .hero-contact {
-      margin-top: 2rem;
-      display: flex; flex-direction: column; gap: 0.4rem;
-    }
-    .hero-contact a {
-      font-family: var(--mono); font-size: 0.75rem;
-      color: var(--muted); text-decoration: none; transition: color 0.2s;
-    }
-    .hero-contact a:hover { color: var(--accent); }
-    .hero-deco {
-      position: absolute; top: 0; right: 0; bottom: 0;
-      width: 30vw; pointer-events: none; opacity: 0.04;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 39px,
-        var(--ink) 39px,
-        var(--ink) 40px
-      );
-    }
-
-    /* ── SECTION HEADER ── */
-    .section-label {
-      font-family: var(--mono); font-size: 0.7rem;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 0.6rem;
-    }
-    .section-title {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300; line-height: 1.1;
-    }
-    .rule { height: 1px; background: var(--rule); margin: 3rem 0; }
-
-    /* ── EXPERIENCE ── */
-    .timeline { display: flex; flex-direction: column; gap: 3rem; margin-top: 3rem; }
-    .timeline-item {
-      display: grid; grid-template-columns: 140px 1fr;
-      gap: 2rem;
-      opacity: 0; transform: translateY(20px);
-      animation: fadeUp 0.6s forwards;
-    }
-    .timeline-item:nth-child(1) { animation-delay: 0.1s; }
-    .timeline-item:nth-child(2) { animation-delay: 0.2s; }
-    .timeline-item:nth-child(3) { animation-delay: 0.3s; }
-    .timeline-item:nth-child(4) { animation-delay: 0.4s; }
-    .t-date {
-      font-family: var(--mono); font-size: 0.72rem;
-      color: var(--muted); padding-top: 0.3rem;
-      text-align: right; border-right: 1px solid var(--rule);
-      padding-right: 1.5rem;
-    }
-    .t-body {}
-    .t-role { font-size: 1.25rem; font-weight: 600; }
-    .t-org { font-size: 1rem; color: var(--accent); font-style: italic; }
-    .t-desc { margin-top: 0.5rem; font-size: 0.95rem; color: #4a4643; line-height: 1.75; }
-
-    /* ── RESEARCH / PUBLICATIONS ── */
-    .pub-group { margin-bottom: 3rem; }
-    .pub-group-title {
-      font-family: var(--mono); font-size: 0.72rem;
-      text-transform: uppercase; letter-spacing: 0.15em;
-      color: var(--muted); margin-bottom: 1.2rem;
-      padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule);
-    }
-    .pub {
-      padding: 1.2rem 0;
-      border-bottom: 1px solid var(--rule);
-    }
-    .pub:last-child { border-bottom: none; }
-    .pub-title { font-size: 1rem; font-weight: 600; line-height: 1.45; }
-    .pub-meta {
-      font-size: 0.85rem; color: var(--muted);
-      margin-top: 0.3rem; font-style: italic;
-    }
-    .pub-venue {
-      display: inline-block; margin-top: 0.4rem;
-      font-family: var(--mono); font-size: 0.65rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      background: var(--ink); color: var(--paper);
-      padding: 0.15rem 0.5rem; border-radius: 2px;
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem; margin-top: 3rem;
-    }
-    .skill-card {
-      border: 1px solid var(--rule); padding: 1.5rem;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .skill-cat {
-      font-family: var(--mono); font-size: 0.65rem;
-      text-transform: uppercase; letter-spacing: 0.15em;
-      color: var(--accent); margin-bottom: 0.6rem;
-    }
-    .skill-items {
-      font-size: 0.95rem; color: #3a3733; line-height: 1.7;
-    }
-
-    /* ── AWARDS ── */
-    .award-list { margin-top: 2rem; }
-    .award {
-      display: flex; justify-content: space-between; align-items: baseline;
-      padding: 1rem 0; border-bottom: 1px solid var(--rule);
-      font-size: 1rem;
-    }
-    .award-year {
-      font-family: var(--mono); font-size: 0.7rem;
-      color: var(--accent); flex-shrink: 0; margin-left: 1rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--rule);
-      padding: 3rem 0;
-      text-align: center;
-    }
-    footer p {
-      font-family: var(--mono); font-size: 0.7rem;
-      letter-spacing: 0.1em; color: var(--muted);
-    }
-
-    /* ── ANIMATION ── */
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-right { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 2rem; }
-      .timeline-item { grid-template-columns: 1fr; gap: 0.3rem; }
-      .t-date { text-align: left; border-right: none; border-bottom: 1px solid var(--rule); padding-right: 0; padding-bottom: 0.5rem; }
+    @media (max-width: 600px) {
+      .wrapper { flex-direction: column; }
+      .sidebar { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <span class="nav-name">Farzin Haddadpour</span>
-    <ul class="nav-links">
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#skills">Skills</a></li>
+<div class="wrapper">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <!-- Replace profile.jpg with your actual photo -->
+    <img src="profile.jpg" alt="Farzin Haddadpour" onerror="this.style.display='none'"/>
+    <h1>Farzin Haddadpour</h1>
+    <p class="role">AI Scientist<br/>Senior Staff Data Scientist</p>
+    <ul>
+      <li>📍 Bellevue, WA</li>
+      <li>🏥 GE Healthcare</li>
+      <li><a href="mailto:farzin.haddadpour@gmail.com">Email</a></li>
+      <li><a href="https://scholar.google.com" target="_blank">Google Scholar</a></li>
     </ul>
-  </nav>
+  </aside>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-deco"></div>
-    <div class="container" style="width:100%">
-      <div class="hero-grid">
-        <div class="hero-left">
-          <h1>Farzin<br><em>Haddadpour</em></h1>
-          <p class="subtitle">AI Scientist &nbsp;·&nbsp; Bellevue, WA &nbsp</p>
-        </div>
-        <div class="hero-right">
-          <p>Senior AI Scientist at GE Healthcare, working on multi-modal reasoning models for 2D and 3D medical imaging. Former postdoc at Yale, with deep expertise in federated learning, distributionally robust optimization, and large language models.</p>
-          <div class="hero-contact">
-            <a href="mailto:farzin.haddadpour@gmail.com">farzin.haddadpour@gmail.com</a>
-            <a href="https://scholar.google.com" target="_blank">Google Scholar ↗</a>
-          </div>
-        </div>
-      </div>
+  <!-- MAIN -->
+  <main>
+
+    <h2>About</h2>
+    <p>
+      I am an AI Scientist (Senior Staff Data Scientist) at <a href="https://www.gehealthcare.com/" target="_blank">GE Healthcare</a>, working on pre/post training of multi-modal reasoning models for 2D and 3D medical images using VLLMs.
+    </p>
+    <p>
+      Prior to GE Healthcare, I was a Senior Applied ML Researcher at <a href="https://www.biogen.com/" target="_blank">Biogen</a>, working on generative LLMs for drug discovery using reinforcement learning (RLHF, RLAIF) and DPO. Before that, I was a Postdoctoral Research Associate at <a href="https://www.yale.edu/" target="_blank">Yale University</a> supervised by <a href="https://karbasi.lab.yale.edu/" target="_blank">Amin Karbasi</a>, working on distributionally robust learning, fair ML, and federated learning.
+    </p>
+    <p>
+      I received my PhD from Pennsylvania State University (2021), supervised by Mehrdad Mahdavi and Viveck Cadambe.
+    </p>
+
+    <h2>Publications</h2>
+
+    <p class="pub-group-label">Foundational Model Pretraining</p>
+
+    <div class="pub">
+      <div class="title">Multi Anatomy X-Ray Foundation Model</div>
+      <div class="authors">Singla, Koos, <strong>Haddadpour</strong>, Shandiz, et al.</div>
+      <div class="venue">Submitted, arXiv 2025</div>
     </div>
-  </section>
 
-  <!-- EXPERIENCE -->
-  <section id="experience" style="background: #efece4;">
-    <div class="container">
-      <p class="section-label">Career</p>
-      <h2 class="section-title">Experience</h2>
-      <div class="timeline">
-
-        <div class="timeline-item">
-          <div class="t-date">2024 — Present</div>
-          <div class="t-body">
-            <div class="t-role">AI Scientist — Senior Staff Data Scientist</div>
-            <div class="t-org">GE Healthcare</div>
-            <div class="t-desc">Pre/post training of multi-modal reasoning models for 2D and 3D medical images using VLLMs. Ongoing work on improving multi-modal reasoning via self-training.</div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="t-date">2023 — 2024</div>
-          <div class="t-body">
-            <div class="t-role">Senior Applied ML Researcher</div>
-            <div class="t-org">Biogen</div>
-            <div class="t-desc">Generative LLMs for drug discovery and optimization using Reinforcement Learning (RLHF and RLAIF). Pre-training and fine-tuning LLMs with RL and DPO.</div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="t-date">2021 — 2023</div>
-          <div class="t-body">
-            <div class="t-role">Postdoctoral Research Associate</div>
-            <div class="t-org">Yale University, Computer Science</div>
-            <div class="t-desc">Supervised by Amin Karbasi. Research in distributionally robust learning, fair large-scale ML, and federated learning. Drug-discovery projects on selective kinase inhibitors and blood-brain barrier permeability using transformers.</div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="t-date">Summer 2020</div>
-          <div class="t-body">
-            <div class="t-role">AI Research Intern</div>
-            <div class="t-org">Baidu AI, Seattle</div>
-            <div class="t-desc">Mentored by Ping Li.</div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="t-date">2016 — 2021</div>
-          <div class="t-body">
-            <div class="t-role">PhD — Electrical Engineering & Computer Science</div>
-            <div class="t-org">Pennsylvania State University</div>
-            <div class="t-desc">Supervised by Mehrdad Mahdavi and Viveck Cadambe. Research in federated learning, fairness in ML, and large-scale HPC.</div>
-          </div>
-        </div>
-
-      </div>
+    <div class="pub">
+      <div class="title">Decipher-MR: A Vision-Language Foundation Model for 3D MRI Representations</div>
+      <div class="authors">Yang, DSouza, Megyeri, Xu, <strong>Haddadpour</strong>, et al.</div>
+      <div class="venue">Submitted, arXiv 2025</div>
     </div>
-  </section>
 
-  <!-- RESEARCH -->
-  <section id="research">
-    <div class="container">
-      <p class="section-label">Publications</p>
-      <h2 class="section-title">Research</h2>
-      <div class="rule"></div>
+    <p class="pub-group-label">Robust & Fair Machine Learning</p>
 
-      <!-- Foundational Models -->
-      <div class="pub-group">
-        <div class="pub-group-title">Foundational Model Pretraining · 2024–2025</div>
-
-        <div class="pub">
-          <div class="pub-title">Multi Anatomy X-Ray Foundation Model</div>
-          <div class="pub-meta">Singla, Koos, Haddadpour, et al.</div>
-          <span class="pub-venue">Submitted · arXiv</span>
-        </div>
-
-        <div class="pub">
-          <div class="pub-title">Decipher-MR: A Vision-Language Foundation Model for 3D MRI Representations</div>
-          <div class="pub-meta">Yang, DSouza, Megyeri, Xu, Haddadpour, et al.</div>
-          <span class="pub-venue">Submitted · arXiv</span>
-        </div>
-      </div>
-
-      <!-- Robust ML -->
-      <div class="pub-group">
-        <div class="pub-group-title">Robust & Fair Machine Learning · 2020–2024</div>
-
-        <div class="pub">
-          <div class="pub-title">Learning Distributionally Robust Models at Scale via Composite Optimization</div>
-          <div class="pub-meta">Haddadpour, Kamani, Mahdavi</div>
-          <span class="pub-venue">ICLR 2022</span>
-        </div>
-
-        <div class="pub">
-          <div class="pub-title">Efficient Fair Principal Component Analysis</div>
-          <div class="pub-meta">Kamani, Haddadpour, Forsati, Mahdavi</div>
-          <span class="pub-venue">Journal of Machine Learning · 2021</span>
-        </div>
-      </div>
-
-      <!-- Generalization -->
-      <div class="pub-group">
-        <div class="pub-group-title">Generalization Error of GD and Zeroth Order Methods · 2020–ongoing</div>
-
-        <div class="pub">
-          <div class="pub-title">Beyond Lipschitz: Sharp Generalization and Excess Risk Bounds for Full-Batch GD</div>
-          <div class="pub-meta">Nikolakakis, Haddadpour, Karbasi, Kalogerias</div>
-          <span class="pub-venue">ICLR 2023</span>
-        </div>
-
-        <div class="pub">
-          <div class="pub-title">Black-Box Generalization</div>
-          <div class="pub-meta">Nikolakakis, Haddadpour, Kalogerias, Karbasi</div>
-          <span class="pub-venue">NeurIPS 2022</span>
-        </div>
-      </div>
-
-      <!-- Federated Learning -->
-      <div class="pub-group">
-        <div class="pub-group-title">Federated & Large-Scale Machine Learning · 2018–ongoing</div>
-
-        <div class="pub">
-          <div class="pub-title">Federated Learning with Compression: Unified Analysis and Sharp Guarantees</div>
-          <div class="pub-meta">Haddadpour, Kamani, Mokhtari, Mahdavi</div>
-          <span class="pub-venue">AISTATS 2021</span>
-        </div>
-
-        <div class="pub">
-          <div class="pub-title">FedSKETCH: Communication-Efficient and Private Federated Learning via Sketching</div>
-          <div class="pub-meta">Haddadpour, Karimi, Li, Li</div>
-          <span class="pub-venue">arXiv 2020</span>
-        </div>
-
-        <div class="pub">
-          <div class="pub-title">Local SGD with Periodic Averaging: Tighter Analysis and Adaptive Synchronization</div>
-          <div class="pub-meta">Haddadpour, Kamani, Mahdavi, Cadambe</div>
-          <span class="pub-venue">NeurIPS 2019</span>
-        </div>
-
-        <div class="pub">
-          <div class="pub-title">Trading Redundancy for Communication: Speeding up Distributed SGD for Non-convex Optimization</div>
-          <div class="pub-meta">Haddadpour, Kamani, Mahdavi, Cadambe</div>
-          <span class="pub-venue">ICML 2019</span>
-        </div>
-      </div>
-
-      <!-- Fault Tolerant -->
-      <div class="pub-group">
-        <div class="pub-group-title">Fault-Tolerant Large-Scale ML · 2016–2018</div>
-
-        <div class="pub">
-          <div class="pub-title">On the Optimal Recovery Threshold of Coded Matrix Multiplication</div>
-          <div class="pub-meta">Dutta*, Fahim*, Haddadpour*, Jeong*, Cadambe, Grover &nbsp;(*equal contribution)</div>
-          <span class="pub-venue">IEEE Trans. Information Theory</span>
-        </div>
-
-        <div class="pub">
-          <div class="pub-title">Cross-Iteration Coded Computing</div>
-          <div class="pub-meta">Haddadpour, Yang, Cadambe, Grover</div>
-          <span class="pub-venue">Allerton 2018</span>
-        </div>
-      </div>
-
+    <div class="pub">
+      <div class="title">Learning Distributionally Robust Models at Scale via Composite Optimization</div>
+      <div class="authors"><strong>Haddadpour</strong>, Kamani, Mahdavi</div>
+      <div class="venue">ICLR 2022</div>
     </div>
-  </section>
 
-  <!-- SKILLS -->
-  <section id="skills" style="background: #efece4;">
-    <div class="container">
-      <p class="section-label">Technical</p>
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-cat">Languages</div>
-          <div class="skill-items">Python (Advanced)</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-cat">Frameworks</div>
-          <div class="skill-items">PyTorch · PyTorch Lightning · DeepSpeed · JAX</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-cat">LLMs & AI</div>
-          <div class="skill-items">LangChain · Pycaret (AutoML)</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-cat">Big Data</div>
-          <div class="skill-items">Pandas · SQL</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-cat">Web & Apps</div>
-          <div class="skill-items">Streamlit · HTML/CSS · Jekyll</div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-cat">Utilities</div>
-          <div class="skill-items">Anaconda · Git · Jupyter Notebook</div>
-        </div>
-      </div>
+    <div class="pub">
+      <div class="title">Efficient Fair Principal Component Analysis</div>
+      <div class="authors">Kamani, <strong>Haddadpour</strong>, Forsati, Mahdavi</div>
+      <div class="venue">Journal of Machine Learning, 2021</div>
     </div>
-  </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Farzin Haddadpour &nbsp;·&nbsp; farzin.haddadpour@gmail.com</p>
-  </footer>
+    <p class="pub-group-label">Generalization Error</p>
+
+    <div class="pub">
+      <div class="title">Beyond Lipschitz: Sharp Generalization and Excess Risk Bounds for Full-Batch GD</div>
+      <div class="authors">Nikolakakis, <strong>Haddadpour</strong>, Karbasi, Kalogerias</div>
+      <div class="venue">ICLR 2023</div>
+    </div>
+
+    <div class="pub">
+      <div class="title">Black-Box Generalization</div>
+      <div class="authors">Nikolakakis, <strong>Haddadpour</strong>, Kalogerias, Karbasi</div>
+      <div class="venue">NeurIPS 2022</div>
+    </div>
+
+    <p class="pub-group-label">Federated & Large-Scale Machine Learning</p>
+
+    <div class="pub">
+      <div class="title">Federated Learning with Compression: Unified Analysis and Sharp Guarantees</div>
+      <div class="authors"><strong>Haddadpour</strong>, Kamani, Mokhtari, Mahdavi</div>
+      <div class="venue">AISTATS 2021</div>
+    </div>
+
+    <div class="pub">
+      <div class="title">FedSKETCH: Communication-Efficient and Private Federated Learning via Sketching</div>
+      <div class="authors"><strong>Haddadpour</strong>, Karimi, Li, Li</div>
+      <div class="venue">arXiv 2020</div>
+    </div>
+
+    <div class="pub">
+      <div class="title">Local SGD with Periodic Averaging: Tighter Analysis and Adaptive Synchronization</div>
+      <div class="authors"><strong>Haddadpour</strong>, Kamani, Mahdavi, Cadambe</div>
+      <div class="venue">NeurIPS 2019</div>
+    </div>
+
+    <div class="pub">
+      <div class="title">Trading Redundancy for Communication: Speeding up Distributed SGD for Non-convex Optimization</div>
+      <div class="authors"><strong>Haddadpour</strong>, Kamani, Mahdavi, Cadambe</div>
+      <div class="venue">ICML 2019</div>
+    </div>
+
+    <p class="pub-group-label">Fault-Tolerant Large-Scale ML</p>
+
+    <div class="pub">
+      <div class="title">On the Optimal Recovery Threshold of Coded Matrix Multiplication</div>
+      <div class="authors">Dutta*, Fahim*, <strong>Haddadpour*</strong>, Jeong*, Cadambe, Grover &nbsp;(*equal contribution)</div>
+      <div class="venue">IEEE Transactions on Information Theory</div>
+    </div>
+
+    <div class="pub">
+      <div class="title">Cross-Iteration Coded Computing</div>
+      <div class="authors"><strong>Haddadpour</strong>, Yang, Cadambe, Grover</div>
+      <div class="venue">Allerton 2018</div>
+    </div>
+
+    <h2>Services</h2>
+    <p>
+      <strong>Reviewer:</strong> ICML, NeurIPS, ICLR, AISTATS, ISIT<br/>
+      <strong>Program Committee:</strong> ICML Workshop on Federated Learning (2021), AAAI Workshop on Federated Learning (2022)
+    </p>
+
+  </main>
+</div>
+
+<footer>© 2025 Farzin Haddadpour</footer>
 
 </body>
 </html>
